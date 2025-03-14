@@ -9,3 +9,7 @@ namespace :appcache do
     File.write("cache.appcache", appcache.sub(/^# Updated:.*$/, updated))
   end
 end
+
+task :build do
+  system 'bundle exec dartsass --no-source-map style/main.css style/main.css'
+end
