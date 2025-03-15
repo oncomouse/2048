@@ -12,6 +12,25 @@ $game-container-margin-top: 40px;
 
 $mobile-threshold: $field-width + 20px;
 
+// Title components
+$tile-exponent-base: 2;
+$tile-exponent-step: 1;
+$tile-exponent-step-max: 12;
+
+// Colors for all 12 states, false = no special color
+$tile-override-colors: false false, // 2
+                       false false, // 4
+                       #f78e48 true, // 8
+                       #fc5e2e true, // 16
+                       #ff3333 true, // 32
+                       #ff0000 true, // 64
+                       false true, // 128
+                       false true, // 256
+                       false true, // 512
+                       false true, // 1024
+                       false true, // 2048
+                       false true; // 4096
+
 $text-color: #776E65;
 $bright-text-color: #f9f6f2;
 
@@ -345,34 +364,16 @@ hr {
   -moz-transition-property: -moz-transform;
   transition-property: transform;
 
-  $base: 2;
-  $exponent: 1;
-  $limit: 12;
-
-  // Colors for all 11 states, false = no special color
-  $special-colors: false false, // 2
-                   false false, // 4
-                   #f78e48 true, // 8
-                   #fc5e2e true, // 16
-                   #ff3333 true, // 32
-                   #ff0000 true, // 64
-                   false true, // 128
-                   false true, // 256
-                   false true, // 512
-                   false true, // 1024
-                   false true, // 2048
-                   false true; // 4096
-
   // Build tile colors
-  @while $exponent <= $limit {
-    $power: helpers.pow($base, $exponent);
+  @while $tile-exponent-step <= $tile-exponent-step-max {
+    $power: helpers.pow($tile-exponent-base, $tile-exponent-step);
 
     &.tile-#{$power} .tile-inner {
       // Calculate base background color
-      $gold-percent: calc(($exponent - 1) / ($limit - 1)) * 100;
+      $gold-percent: calc(($tile-exponent-step - 1) / ($tile-exponent-step-max - 1)) * 100;
       $mixed-background: color.mix($tile-gold-color, $tile-color, $gold-percent * 1%);
 
-      $nth-color: list.nth($special-colors, $exponent);
+      $nth-color: list.nth($tile-override-colors, $tile-exponent-step);
 
       $special-background: list.nth($nth-color, 1);
       $bright-color: list.nth($nth-color, 2);
@@ -389,7 +390,7 @@ hr {
       background: $mixed-background;
 
       // Add glow
-      $glow-opacity: calc(max($exponent - 4, 0) / ($limit - 4));
+      $glow-opacity: calc(max($tile-exponent-step - 4, 0) / ($tile-exponent-step-max - 4));
 
       @if not $special-background {
         box-shadow: 0 0 30px 10px rgba($tile-gold-glow-color, calc($glow-opacity / 1.8)),
@@ -413,7 +414,7 @@ hr {
       }
     }
 
-    $exponent: $exponent + 1;
+    $tile-exponent-step: $tile-exponent-step + 1;
   }
 
   // Super tiles (above 2048)
