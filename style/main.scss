@@ -18,21 +18,21 @@ $tile-exponent-step: 1;
 $tile-exponent-step-max: 12;
 
 // Colors for all 12 states, false = no special color
-$tile-override-colors: false false, // 2
-                       false false, // 4
-                       #f78e48 true, // 8
-                       #fc5e2e true, // 16
-                       #ff3333 true, // 32
-                       #ff0000 true, // 64
-                       false true, // 128
-                       false true, // 256
-                       false true, // 512
-                       false true, // 1024
-                       false true, // 2048
-                       false true; // 4096
+$tile-override-colors: #FC6600 true, // 2
+                       #8CCB62 true, // 4
+                       #C34B61 true, // 8
+                       #582673 true, // 16
+                       #FFA700 true, // 32
+                       #4B349D true, // 64
+                       #FF6F61 true, // 128
+                       #2D5E86 true, // 256
+                       #256F65 true, // 512
+                       #602520 true, // 1024
+                       #BB3E94 true, // 2048
+                       #1B502D true; // 4096
 
 $text-color: #776E65;
-$bright-text-color: #f9f6f2;
+$bright-text-color: #FAF0F7;
 
 $tile-color: #eee4da;
 $tile-gold-color: #edc22e;
@@ -379,7 +379,8 @@ hr {
       $bright-color: list.nth($nth-color, 2);
 
       @if $special-background {
-        $mixed-background: color.mix($special-background, $mixed-background, 55%);
+        $mixed-background: color.mix($special-background, $mixed-background, 95%);
+        // $mixed-background: $special-background;
       }
 
       @if $bright-color {
